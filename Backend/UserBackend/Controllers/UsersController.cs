@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UserBackend.Interfaces;
+using UserBackend.Models;
+using UserBackend.Services;
 
 namespace UserBackend.Controllers
 {
@@ -6,10 +9,17 @@ namespace UserBackend.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        private readonly IUsersService _usersService;
+        public UsersController(IUsersService usersService) 
+        { 
+            _usersService = usersService;
+        }
+
         [HttpGet]
-        public string Index()
+        public List<User> GetUsers()
         {
-            return "TEST";
+            var users = _usersService.GetUsers();
+            return users;
         }
     }
 }
